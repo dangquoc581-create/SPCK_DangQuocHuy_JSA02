@@ -8,45 +8,33 @@ const products = [
     { name: "Sony WH-1000XM5", price: "6990000", image: "https://pos.nvncdn.com/91002e-15402/ps/20220601_UZxFH0gKhi8BtRLbp3A6TPGw.jpeg?v=1673600583", description: "Chống ồn đỉnh cao, âm thanh trung thực." }
 ];
 
-// Hàm hiển thị sản phẩm khi mở trang
-function initProducts() {
-    console.log("Đang tải sản phẩm thủ công...");
-    renderProducts(products);
-}
-
 // Hàm hiển thị sản phẩm ra màn hình
 function renderProducts(products) {
-    const productList = document.getElementById('product-list');
+    const productList = document.getElementById("product-list");
     if (!productList) return;
     
     // Dùng map để tạo danh sách card sản phẩm
-    productList.innerHTML = products.map(product => `
+    productList.innerHTML = products.map((product, index) => `
         <div class="col">
             <div class="card h-100 shadow-sm">
                 <img src="${product.image}" class="card-img-top" alt="${product.name}" style="height: 200px; object-fit: cover;">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">${product.name}</h5>
-                    <!-- Thêm phần mô tả sản phẩm -->
-                    <p class="card-text text-muted small mb-3">${product.description || 'Sản phẩm chất lượng cao từ HuyCommerce.'}</p>
-                    <p class="card-text text-primary fw-bold mt-auto">
-                        ${formatPrice(product.price)}đ
-                    </p>
+                    <p class="card-text text-muted small mb-3">${product.description}</p>
+                    <p class="card-text text-primary fw-bold mt-auto">${formatPrice(product.price)}đ</p>
                     <button class="btn btn-primary mt-auto">Mua ngay</button>
                 </div>
             </div>
         </div>
-    `).join('');
+    `).join("");
 }
 
 // Hàm phụ trợ để định dạng giá tiền 
 function formatPrice(price) {
-    if (!price) return "0";
-    // Loại bỏ tất cả ký tự không phải số đề phòng API
-    const numericValue = price.toString().replace(/[^0-9]/g, '');
-    return numericValue ? Number(numericValue).toLocaleString('vi-VN') : price;
+    return Number(price).toLocaleString("vi-VN");
 }
 
 // Chạy hàm lấy dữ liệu khi trang web tải xong
-document.addEventListener('DOMContentLoaded', () => {
-    initProducts();
+document.addEventListener("DOMContentLoaded", () => {
+    renderProducts(products);
 });

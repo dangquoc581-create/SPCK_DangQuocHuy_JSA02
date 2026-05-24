@@ -2,11 +2,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
 }
 
 body {
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background-color: #f9fafb;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -27,8 +27,8 @@ body.home-page {
 .auth-card {
     background: white;
     padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
     text-align: center;
 }
 
@@ -86,7 +86,7 @@ h2 {
 }
 
 .btn-primary:hover {
-    background-color: #357abd;
+    background-color: #111827;
 }
 
 .auth-footer {
@@ -108,14 +108,48 @@ h2 {
 /* Styles cho trang bán hàng */
 .navbar {
     background: white;
-    padding: 15px 50px;
+    padding: 20px 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e5e7eb;
 }
 
-.logo { font-size: 1.5rem; font-weight: 700; color: #4a90e2; }
-.btn-logout { background: #ff4757; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+.logo { 
+    font-size: 1.25rem; 
+    font-weight: 800; 
+    color: #111827; 
+    text-decoration: none; 
+    letter-spacing: -0.5px;
+}
+
+.btn-logout { 
+    background: transparent; 
+    color: #4b5563; 
+    border: 1px solid #e5e7eb; 
+    padding: 8px 16px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-size: 0.875rem;
+    transition: all 0.2s;
+}
+
+.btn-logout:hover {
+    background: #fef2f2;
+    color: #ef4444;
+    border-color: #fee2e2;
+}
 
 .container { padding: 40px 50px; }
+
+/* Tinh chỉnh card sản phẩm để clean hơn */
+.card {
+    border: 1px solid #e5e7eb !important;
+    border-radius: 8px !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05) !important;
+}
