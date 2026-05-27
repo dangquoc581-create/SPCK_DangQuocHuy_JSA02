@@ -2,7 +2,7 @@
 // Xử lý Đăng ký
 const registerForm = document.getElementById("registerForm");
 if (registerForm) {
-    registerForm.addEventListener("submit", (e) => {
+    registerForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const username = document.getElementById("reg-username").value;
         const email = document.getElementById("reg-email").value;
@@ -17,8 +17,8 @@ if (registerForm) {
         // Lấy danh sách user cũ từ localStorage
         const users = JSON.parse(localStorage.getItem("users")) || [];
 
-        // Kiểm tra xem tên đăng nhập hoặc email đã tồn tại chưa
-        if (users.some(u => u.username === username || u.email === email)) {
+        // Kiểm tra xem tên đăng nhập hoặc email đã tồn tại chưa (không phân biệt hoa thường)
+        if (users.some(u => u.username.toLowerCase() === username.toLowerCase() || u.email.toLowerCase() === email.toLowerCase())) {
             alert("Tên đăng nhập hoặc Email đã được sử dụng!");
             return;
         }
@@ -35,14 +35,20 @@ if (registerForm) {
 // Xử lý Đăng nhập
 const loginForm = document.getElementById("loginForm");
 if (loginForm) {
-    loginForm.addEventListener("submit", (e) => {
+    loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         const usernameInput = document.getElementById("username").value;
         const emailInput = document.getElementById("login-email").value;
         const passwordInput = document.getElementById("password").value;
 
+        // Lấy danh sách user từ localStorage
         const users = JSON.parse(localStorage.getItem("users")) || [];
-        const user = users.find(u => u.username === usernameInput && u.email === emailInput && u.password === passwordInput);
+
+        // Tìm user khớp với thông tin nhập vào
+        const user = users.find(u => 
+            u.username.toLowerCase() === usernameInput.toLowerCase() && 
+            u.email.toLowerCase() === emailInput.toLowerCase() && 
+            u.password === passwordInput);
 
         if (user) {
             alert("Đăng nhập thành công!");
@@ -73,8 +79,11 @@ if (welcomeMsg) {
 const logoutBtn = document.getElementById("logout-btn");
 if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
-        localStorage.removeItem("user");
-        window.location.href = "login.html";
+        const confirmLogout = confirm("Bạn có chắc chắn muốn đăng xuất không?");
+        if (confirmLogout) {
+            localStorage.removeItem("user");
+            window.location.href = "login.html";
+        }
     });
 }
 
@@ -116,7 +125,7 @@ if (saveProfileBtn) {
 
         // Cập nhật trong danh sách tổng (users)
         const users = JSON.parse(localStorage.getItem("users")) || [];
-        const userIndex = users.findIndex(u => u.username === currentUser.username);
+        const userIndex = users.findIndex(u => u.username.toLowerCase() === currentUser.username.toLowerCase());
         
         if (userIndex !== -1) {
             users[userIndex] = { username: newUsername, email: newEmail, password: newPassword };
